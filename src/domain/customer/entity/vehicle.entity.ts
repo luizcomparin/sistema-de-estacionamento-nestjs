@@ -4,18 +4,22 @@ import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGenerate
 
 @Entity({ name: "vehicle" })
 export class VehicleEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+	@PrimaryGeneratedColumn('uuid')
+	id: string
 
-    @Column({ name: 'plate', nullable: false })
-    plate: string
+	@Column({ name: 'plate', nullable: false })
+	plate: string
 
-    @Column({ name: 'model', nullable: true })
-    model: string
+	@Column({ name: 'model', nullable: true })
+	model: string
 
-    @Column({ name: 'color', nullable: false })
-    color: string
+	@Column({ name: 'color', nullable: false })
+	color: string
 
-    @Column({ name: 'type', nullable: false })
-    type: string
+	@Column({ name: 'type', nullable: false })
+	type: string
+
+	public constructor(init?: Partial<VehicleEntity>) {
+		Object.assign(this, init);
+	}
 }
