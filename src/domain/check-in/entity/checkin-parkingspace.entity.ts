@@ -25,4 +25,8 @@ export class CheckInParkingSpaceEntity {
 	@OneToOne(() => CheckInCustomerEntity)
 	@JoinColumn()
 	parked_customer: CheckInCustomerEntity
+
+	public constructor(init?: Partial<CheckInParkingSpaceEntity>) {
+		Object.assign(this, init);
+	}
 }

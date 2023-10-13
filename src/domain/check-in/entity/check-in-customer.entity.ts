@@ -22,4 +22,8 @@ export class CheckInCustomerEntity {
 	@OneToOne(() => CheckInVehicleEntity)
 	@JoinColumn()
 	vehicle: CheckInVehicleEntity
+
+	public constructor(init?: Partial<CheckInCustomerEntity>) {
+		Object.assign(this, init);
+	}
 }

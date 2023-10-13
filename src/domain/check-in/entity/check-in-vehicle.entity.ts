@@ -17,4 +17,8 @@ export class CheckInVehicleEntity {
 
 	@Column({ nullable: false })
 	type: string
+
+	public constructor(init?: Partial<CheckInVehicleEntity>) {
+		Object.assign(this, init);
+	}
 }
