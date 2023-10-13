@@ -37,8 +37,6 @@ export class ParkingSpaceService implements IParkingSpaceService {
 		// Getting parking space to be edited.
 		const parkingSpaceToEdit = await this.getById(parkingSpaceId)
 
-
-		console.log('parkingSpaceToEdit', parkingSpaceToEdit)
 		// Fails if parking space if occupied.
 		if (parkingSpaceToEdit.parked_customer) throw new Error(`Espaço de estacionamento está ocupado. Desocupe-o antes de editá-lo.`)
 		// throw new Exception(CommonResponseResultEnum.BAD_REQUEST.ToString(), new Exception("Espaço de estacionamento ocupado."));
@@ -49,7 +47,6 @@ export class ParkingSpaceService implements IParkingSpaceService {
 		parkingSpaceToEdit.limit_time_in_hours = parkingSpaceDto.limitTimeInHours
 		parkingSpaceToEdit.price_per_hour = parkingSpaceDto.pricePerHour
 		parkingSpaceToEdit.type = parkingSpaceDto.type
-		console.log('parkingSpaceToEdit', parkingSpaceToEdit)
 
 		// Updating entity in DB;
 		await this.parkingSpaceRepository.update(parkingSpaceId, parkingSpaceToEdit)
@@ -71,16 +68,16 @@ export class ParkingSpaceService implements IParkingSpaceService {
 		return getOneRes;
 	}
 
-	occupy = async (parkingSpaceId: string, customerId: string) => {
+	occupy = async (parkingSpaceId: string, customerCpf: string) => {
 		const selectedParkingSpace = await this.getById(parkingSpaceId);
 		if (selectedParkingSpace === null) throw new Error(`Espaço de estacionamento com Id ${parkingSpaceId} não encontrado.`)
 
-		const customer = await this.customerRepository.findOneBy({ id: customerId })
-		if (customer === null) throw new Error(`Cliente com Id ${customerId} não encontrado.`)
+		const customer = await this.customerRepository.findOneBy({ cpf: customerCpf })
+		if (customer === null) throw new Error(`Cliente com CPF ${customerCpf} não encontrado.`)
 
 		selectedParkingSpace.parked_customer = customer;
 
-		this.parkingSpaceRepository.update(parkingSpaceId, selectedParkingSpace);
+		await this.parkingSpaceRepository.update(parkingSpaceId, selectedParkingSpace);
 
 		return selectedParkingSpace;
 	}

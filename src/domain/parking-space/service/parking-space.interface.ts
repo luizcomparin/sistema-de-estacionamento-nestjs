@@ -1,4 +1,3 @@
-import { CustomerEntity } from "src/domain/customer/entity/customer.entity";
 import { ParkingSpaceDto } from "../dto/parking-space.dto";
 import { ParkingSpaceEntity } from "../entity/parking-space.entity";
 
@@ -14,7 +13,7 @@ export interface IParkingSpaceService {
 
 	getById: (id: string) => Promise<ParkingSpaceEntity>
 
-	occupy: (id: string, customerId: string) => Promise<ParkingSpaceEntity>
+	occupy: (id: string, customerCpf: string) => Promise<ParkingSpaceEntity>
 
 	liberate: (id: string) => Promise<ParkingSpaceEntity>
 }
