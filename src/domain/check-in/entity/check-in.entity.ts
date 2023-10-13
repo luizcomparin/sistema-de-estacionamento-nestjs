@@ -13,10 +13,14 @@ export class CheckInEntity {
 	@CreateDateColumn({ name: 'hour_exited', type: 'timestamp', nullable: true, default: null })
 	hour_exited: string
 
-	@Column({ name: 'total_price', nullable: false })
+	@Column({ name: 'total_price', nullable: true })
 	total_price: number
 
 	@OneToOne(() => CheckInParkingSpaceEntity)
 	@JoinColumn()
 	parking_space: CheckInParkingSpaceEntity
+
+	public constructor(init?: Partial<CheckInEntity>) {
+		Object.assign(this, init);
+	}
 }

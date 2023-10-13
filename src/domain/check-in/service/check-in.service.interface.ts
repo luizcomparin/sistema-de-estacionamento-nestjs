@@ -1,10 +1,14 @@
+import { CustomerDto } from "src/domain/customer/dto/customer.dto";
+import { CheckInEntity } from "../entity/check-in.entity";
+
+export const CHECKIN_SERVICE = 'CHECKIN SERVICE';
 
 export interface ICheckInService {
-	// findAll: () => Promise<CheckInEntity[]>;
+	getAll: () => Promise<CheckInEntity[]>;
 
-	// findById: (id: string) => Promise<CheckInEntity>
+	getById: (id: string) => Promise<CheckInEntity>
 
-	// openCheckIn: (checkIn: CheckInDto) => Promise<CheckInEntity>
+	open: (parkingSpaceId: string, customer: CustomerDto) => Promise<CheckInEntity>
 
-	// closeCheckIn: (id: string) => Promise<CheckInEntity>
+	close: (id: string) => Promise<CheckInEntity>
 }
