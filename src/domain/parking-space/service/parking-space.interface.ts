@@ -11,7 +11,7 @@ export interface IParkingSpaceService {
 
 	getAll: () => Promise<ParkingSpaceEntity[]>
 
-	getById: (id: string) => Promise<ParkingSpaceEntity>
+	getByIdOrError: (id: string) => Promise<ParkingSpaceEntity>
 
 	occupy: (id: string, customerCpf: string) => Promise<ParkingSpaceEntity>
 

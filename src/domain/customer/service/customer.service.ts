@@ -22,7 +22,12 @@ export class CustomerService implements ICustomerService {
 			where: { cpf },
 			relations: { vehicle: true }
 		})
-		// if (selectedCustomer == null) throw new Error(`Cliente com cpf ${cpf} não encontrado.`)
+		return selectedCustomer;
+	}
+
+	async getByCpfOrError(cpf: string): Promise<CustomerEntity> {
+		const selectedCustomer = await this.getByCpf(cpf);
+		if (selectedCustomer === null) throw new Error(`Cliente com cpf ${cpf} não encontrado.`)
 		return selectedCustomer;
 	}
 
@@ -31,7 +36,12 @@ export class CustomerService implements ICustomerService {
 			where: { id },
 			relations: { vehicle: true }
 		})
-		// if (selectedCustomer == null) throw new Error(`Cliente com id ${id} não encontrado.`)
+		return selectedCustomer;
+	}
+
+	async getByIdOrError(id: string): Promise<CustomerEntity> {
+		const selectedCustomer = await this.getById(id)
+		if (selectedCustomer == null) throw new Error(`Cliente com id ${id} não encontrado.`)
 		return selectedCustomer;
 	}
 
