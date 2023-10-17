@@ -1,11 +1,13 @@
 import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Inject, Param, Patch, Post, Put } from '@nestjs/common';
 import { CommonResponse, StatusEnum } from 'src/shared/response-object/common.response';
-import { IParkingSpaceService, PARKING_SPACE_SERVICE } from '../service/parking-space.interface';
+import { PARKING_SPACE_SERVICE } from '../service/parking-space.interface';
 import { ParkingSpaceEntity } from '../entity/parking-space.entity';
-import { ParkingSpaceDto, ParkingSpaceWithoutCustomerDto } from '../dto/parking-space.dto';
+import { ParkingSpaceWithoutCustomerDto } from '../dto/parking-space.dto';
 import { ParkingSpaceService } from '../service/parking-space.service';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('parking-space')
+@ApiTags('Parking Space')
 export class ParkingSpaceController {
 
 	constructor(
@@ -15,6 +17,8 @@ export class ParkingSpaceController {
 
 	@Get('/get-all')
 	@HttpCode(HttpStatus.FOUND)
+	@ApiResponse({ status: HttpStatus.OK, type: CommonResponse })
+	@ApiResponse({ status: HttpStatus.FOUND, type: ParkingSpaceEntity })
 	async getAll() {
 		var parkingSpaceGetAllResponse = await this.parkingSpaceService.getAll();
 		return new CommonResponse<ParkingSpaceEntity[]>(StatusEnum.success, "Listando todos os espaços de estacionamento.", parkingSpaceGetAllResponse)

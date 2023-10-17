@@ -18,13 +18,13 @@ export class VehicleService implements IVehicleService {
 	}
 
 	async getByPlate(plate: string): Promise<VehicleEntity> {
-		const selectedVehicle = await this.vehicleRepository.findOneBy({ plate })
+		const selectedVehicle = await this.vehicleRepository.findOne({ where: { plate } })
 		// if (selectedVehicle == null) throw new Error(`Veículo com placa ${plate} não encontrado.`)
 		return selectedVehicle;
 	}
 
 	async getById(id: string): Promise<VehicleEntity> {
-		const selectedVehicle = await this.vehicleRepository.findOneBy({ id })
+		const selectedVehicle = await this.vehicleRepository.findOne({ where: { id } })
 		// if (selectedVehicle == null) throw new Error(`Veículo com id ${id} não encontrado.`)
 		return selectedVehicle;
 	}

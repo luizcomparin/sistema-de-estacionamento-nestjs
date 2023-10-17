@@ -2,8 +2,10 @@ import { Body, Controller, HttpCode, HttpStatus, Inject, Post } from '@nestjs/co
 import { CustomerEntity } from '../../entity/customer.entity';
 import { CommonResponse, StatusEnum } from 'src/shared/response-object/common.response';
 import { CUSTOMER_SERVICE, ICustomerService } from '../../service/customer.interface';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('customer')
+@ApiTags('Customer')
 export class CustomerController {
 
 	constructor(

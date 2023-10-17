@@ -18,13 +18,19 @@ export class CustomerService implements ICustomerService {
 	}
 
 	async getByCpf(cpf: string): Promise<CustomerEntity> {
-		const selectedCustomer = await this.customerRepository.findOneBy({ cpf })
+		const selectedCustomer = await this.customerRepository.findOne({
+			where: { cpf },
+			relations: { vehicle: true }
+		})
 		// if (selectedCustomer == null) throw new Error(`Cliente com cpf ${cpf} não encontrado.`)
 		return selectedCustomer;
 	}
 
 	async getById(id: string): Promise<CustomerEntity> {
-		const selectedCustomer = await this.customerRepository.findOneBy({ id })
+		const selectedCustomer = await this.customerRepository.findOne({
+			where: { id },
+			relations: { vehicle: true }
+		})
 		// if (selectedCustomer == null) throw new Error(`Cliente com id ${id} não encontrado.`)
 		return selectedCustomer;
 	}

@@ -1,9 +1,9 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
-import { CheckInCustomerEntity } from "./check-in-customer.entity";
+import { EntryCustomerEntity } from "./entry-customer.entity";
 
 
-@Entity({ name: "check_in_parking_space" })
-export class CheckInParkingSpaceEntity {
+@Entity({ name: "entry_parking_space" })
+export class EntryParkingSpaceEntity {
 	@PrimaryColumn({ nullable: false })
 	id: string
 
@@ -22,11 +22,11 @@ export class CheckInParkingSpaceEntity {
 	@Column({ nullable: false })
 	limit_time_in_hours: number
 
-	@OneToOne(() => CheckInCustomerEntity)
+	@OneToOne(() => EntryCustomerEntity)
 	@JoinColumn()
-	parked_customer: CheckInCustomerEntity
+	parked_customer: EntryCustomerEntity
 
-	public constructor(init?: Partial<CheckInParkingSpaceEntity>) {
+	public constructor(init?: Partial<EntryParkingSpaceEntity>) {
 		Object.assign(this, init);
 	}
 }

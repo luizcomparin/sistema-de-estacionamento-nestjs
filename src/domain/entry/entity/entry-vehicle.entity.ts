@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryColumn } from "typeorm";
 
 
-@Entity({ name: "check_in_vehicle" })
-export class CheckInVehicleEntity {
+@Entity({ name: "entry_vehicle" })
+export class EntryVehicleEntity {
 	@PrimaryColumn({ nullable: false })
 	id: string
 
@@ -18,7 +18,7 @@ export class CheckInVehicleEntity {
 	@Column({ nullable: false })
 	type: string
 
-	public constructor(init?: Partial<CheckInVehicleEntity>) {
+	public constructor(init?: Partial<EntryVehicleEntity>) {
 		Object.assign(this, init);
 	}
 }

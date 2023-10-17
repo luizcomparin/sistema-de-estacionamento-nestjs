@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CheckInService } from './service/check-in.service';
-import { CheckInController } from './controller/check-in.controller';
-import { CheckInEntity } from './entity/check-in.entity';
-import { CheckInParkingSpaceEntity } from './entity/checkin-parkingspace.entity';
-import { CheckInVehicleEntity } from './entity/check-in-vehicle.entity';
-import { CheckInCustomerEntity } from './entity/check-in-customer.entity';
-import { CHECKIN_SERVICE } from './service/check-in.service.interface';
+import { EntryService } from './service/entry.service';
+import { EntryController } from './controller/entry.controller';
+import { EntryEntity } from './entity/entry.entity';
+import { EntryParkingSpaceEntity } from './entity/entry-parkingspace.entity';
+import { EntryVehicleEntity } from './entity/entry-vehicle.entity';
+import { EntryCustomerEntity } from './entity/entry-customer.entity';
+import { ENTRY_SERVICE } from './service/entry.service.interface';
 import { ParkingSpaceService } from '../parking-space/service/parking-space.service';
 import { CUSTOMER_SERVICE } from '../customer/service/customer.interface';
 import { PARKING_SPACE_SERVICE } from '../parking-space/service/parking-space.interface';
@@ -18,11 +18,11 @@ import { CustomerEntity } from '../customer/entity/customer.entity';
 import { VehicleEntity } from '../customer/entity/vehicle.entity';
 
 @Module({
-	imports: [TypeOrmModule.forFeature([CheckInEntity, CheckInParkingSpaceEntity, CheckInVehicleEntity, CheckInCustomerEntity, ParkingSpaceEntity, CustomerEntity, VehicleEntity])],
-	controllers: [CheckInController],
+	imports: [TypeOrmModule.forFeature([EntryEntity, EntryParkingSpaceEntity, EntryVehicleEntity, EntryCustomerEntity, ParkingSpaceEntity, CustomerEntity, VehicleEntity])],
+	controllers: [EntryController],
 	providers: [{
-		provide: CHECKIN_SERVICE,
-		useClass: CheckInService
+		provide: ENTRY_SERVICE,
+		useClass: EntryService
 	},
 	{
 		provide: PARKING_SPACE_SERVICE,
@@ -36,6 +36,6 @@ import { VehicleEntity } from '../customer/entity/vehicle.entity';
 		provide: VEHICLE_SERVICE,
 		useClass: VehicleService
 	}],
-	// exports: [CheckInService]
+	// exports: [EntryService]
 })
-export class CheckInModule { }
+export class EntryModule { }

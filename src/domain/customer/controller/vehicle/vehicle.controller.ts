@@ -1,10 +1,12 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Post } from '@nestjs/common';
 import { CommonResponse, StatusEnum } from 'src/shared/response-object/common.response';
 import { VehicleEntity } from '../../entity/vehicle.entity';
-import { CheckInEntity } from 'src/domain/check-in/entity/check-in.entity';
+import { EntryEntity } from 'src/domain/entry/entity/entry.entity';
 import { IVehicleService, VEHICLE_SERVICE } from '../../service/vehicle.interface';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('vehicle')
+@ApiTags('Vehicle')
 export class VehicleController {
 
 	constructor(
@@ -15,8 +17,8 @@ export class VehicleController {
 	@Get('/get-all')
 	@HttpCode(HttpStatus.FOUND)
 	async getAll() {
-		var checkInGetAllResponse = await this.vehicleService.getAll();
-		return new CommonResponse<CheckInEntity[]>(StatusEnum.success, "Listando todos os check-ins.", checkInGetAllResponse)
+		var entryGetAllResponse = await this.vehicleService.getAll();
+		return new CommonResponse<EntryEntity[]>(StatusEnum.success, "Listando todos os check-ins.", entryGetAllResponse)
 	}
 
 	@Post('/create')

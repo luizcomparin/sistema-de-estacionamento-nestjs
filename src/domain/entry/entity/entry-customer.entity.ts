@@ -1,9 +1,9 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
-import { CheckInVehicleEntity } from "./check-in-vehicle.entity";
+import { EntryVehicleEntity } from "./entry-vehicle.entity";
 
 
-@Entity({ name: "check_in_customer" })
-export class CheckInCustomerEntity {
+@Entity({ name: "entry_customer" })
+export class EntryCustomerEntity {
 	@PrimaryColumn({ nullable: false })
 	id: string
 
@@ -19,11 +19,11 @@ export class CheckInCustomerEntity {
 	@Column({ nullable: false })
 	cpf: string
 
-	@OneToOne(() => CheckInVehicleEntity)
+	@OneToOne(() => EntryVehicleEntity)
 	@JoinColumn()
-	vehicle: CheckInVehicleEntity
+	vehicle: EntryVehicleEntity
 
-	public constructor(init?: Partial<CheckInCustomerEntity>) {
+	public constructor(init?: Partial<EntryCustomerEntity>) {
 		Object.assign(this, init);
 	}
 }

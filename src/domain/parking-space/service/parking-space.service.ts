@@ -27,7 +27,7 @@ export class ParkingSpaceService implements IParkingSpaceService {
 			type: parkingSpaceDto.type
 		})
 
-		const createRes = await this.parkingSpaceRepository.insert(parkingSpaceEntity);
+		const createRes = await this.parkingSpaceRepository.save(parkingSpaceEntity);
 
 
 		return parkingSpaceEntity;
@@ -61,7 +61,7 @@ export class ParkingSpaceService implements IParkingSpaceService {
 	}
 
 	getById = async (id: string) => {
-		const getOneRes = await this.parkingSpaceRepository.findOneBy({ id });
+		const getOneRes = await this.parkingSpaceRepository.findOne({ where: { id }, relations: { parked_customer: true } });
 
 		if (getOneRes == null) throw new Error(`Espaço de estacionamento com Id ${id} não encontrado.`)
 
@@ -72,7 +72,7 @@ export class ParkingSpaceService implements IParkingSpaceService {
 		const selectedParkingSpace = await this.getById(parkingSpaceId);
 		if (selectedParkingSpace === null) throw new Error(`Espaço de estacionamento com Id ${parkingSpaceId} não encontrado.`)
 
-		const customer = await this.customerRepository.findOneBy({ cpf: customerCpf })
+		const customer = await this.customerRepository.findOne({ where: { cpf: customerCpf }, relations: { vehicle: true } })
 		if (customer === null) throw new Error(`Cliente com CPF ${customerCpf} não encontrado.`)
 
 		selectedParkingSpace.parked_customer = customer;
@@ -88,7 +88,7 @@ export class ParkingSpaceService implements IParkingSpaceService {
 		// Setting "parked_customer" to null;
 		selectedParkingSpace.parked_customer = null;
 		// Updating in DB;
-		this.parkingSpaceRepository.update(id, selectedParkingSpace);
+		await this.parkingSpaceRepository.update(id, selectedParkingSpace);
 
 		return selectedParkingSpace;
 	}
